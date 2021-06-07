@@ -24,39 +24,41 @@ from megatron import fused_kernels
 import deepspeed
 
 def parse_args(extra_args_provider=None, defaults={},
-               ignore_unknown_args=False):
+               ignore_unknown_args=False, *, args=None):
     """Parse all arguments."""
-    parser = argparse.ArgumentParser(description='Megatron-LM Arguments',
-                                     allow_abbrev=False)
+    # parser = argparse.ArgumentParser(description='Megatron-LM Arguments',
+    #                                  allow_abbrev=False)
 
-    # Standard arguments.
-    parser = _add_network_size_args(parser)
-    parser = _add_regularization_args(parser)
-    parser = _add_training_args(parser)
-    parser = _add_initialization_args(parser)
-    parser = _add_learning_rate_args(parser)
-    parser = _add_checkpointing_args(parser)
-    parser = _add_mixed_precision_args(parser)
-    parser = _add_distributed_args(parser)
-    parser = _add_validation_args(parser)
-    parser = _add_data_args(parser)
-    parser = _add_autoresume_args(parser)
-    parser = _add_realm_args(parser)
-    parser = _add_zero_args(parser)
-    parser = _add_activation_checkpoint_args(parser)
+    # # Standard arguments.
+    # parser = _add_network_size_args(parser)
+    # parser = _add_regularization_args(parser)
+    # parser = _add_training_args(parser)
+    # parser = _add_initialization_args(parser)
+    # parser = _add_learning_rate_args(parser)
+    # parser = _add_checkpointing_args(parser)
+    # parser = _add_mixed_precision_args(parser)
+    # parser = _add_distributed_args(parser)
+    # parser = _add_validation_args(parser)
+    # parser = _add_data_args(parser)
+    # parser = _add_autoresume_args(parser)
+    # parser = _add_realm_args(parser)
+    # parser = _add_zero_args(parser)
+    # parser = _add_activation_checkpoint_args(parser)
 
-    # Custom arguments.
-    if extra_args_provider is not None:
-        parser = extra_args_provider(parser)
+    # # Custom arguments.
+    # if extra_args_provider is not None:
+    #     parser = extra_args_provider(parser)
 
-    # Include DeepSpeed configuration arguments
-    parser = deepspeed.add_config_arguments(parser)
+    # # Include DeepSpeed configuration arguments
+    # parser = deepspeed.add_config_arguments(parser)
 
-    # Parse.
-    if ignore_unknown_args:
-        args, _ = parser.parse_known_args()
-    else:
-        args = parser.parse_args()
+    # # Parse.
+    # if ignore_unknown_args:
+    #     args, _ = parser.parse_known_args()
+    # else:
+    #     args = parser.parse_args()
+
+
 
     # Distributed args.
     args.rank = int(os.getenv('RANK', '0'))
