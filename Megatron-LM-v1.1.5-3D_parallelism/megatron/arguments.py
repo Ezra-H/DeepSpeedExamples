@@ -44,6 +44,7 @@ def parse_args(extra_args_provider=None, defaults={},
     # parser = _add_realm_args(parser)
     # parser = _add_zero_args(parser)
     # parser = _add_activation_checkpoint_args(parser)
+    # parser = _add_vit_args(parser) # vit
 
     # # Custom arguments.
     # if extra_args_provider is not None:
@@ -537,4 +538,19 @@ def _add_activation_checkpoint_args(parser):
                        help='does a synchronize at the beginning and end of each checkpointed layer.')
     group.add_argument('--profile-backward', action='store_true',
                        help='Enables backward pass profiling for checkpointed layers.')
+    return parser
+
+
+def _add_vit_args(parser):
+    group = parser.add_argument_group(title="vit")
+
+    group.add_argument('--num-classes', type=int, default=1000,
+                       help='num of classes in vision classificaiton task')
+    group.add_argument('--img-dim', type=int, default=224,
+                       help='Image size for vision classification task')
+    group.add_argument('--num-channels', type=int, default=3,
+                       help='Number of channels in input image data')
+    group.add_argument('--patch-dim', type=int, default=16,
+                       help='patch dimension used in vit')
+
     return parser
